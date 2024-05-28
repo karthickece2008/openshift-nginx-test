@@ -1,0 +1,5 @@
+oc delete route fcubs-route
+oc delete service fcubs-service
+oc delete deployment fcubs-deployment
+oc delete configmap fcubs-configmap
+oc delete pvc fcubs-volume-pvc
