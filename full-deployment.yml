@@ -50,7 +50,7 @@ spec:
   selector:
     app: nginx-static
 ---
-apiVersion: v1
+apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: nginx-static-route
