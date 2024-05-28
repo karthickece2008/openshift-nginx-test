@@ -13,7 +13,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-static
+  labels:
+    app: nginx-static
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-static
   template:
     metadata:
       labels:
@@ -24,8 +30,8 @@ spec:
           persistentVolumeClaim:
             claimName: nginx-pvc
       containers:
-        - image: docker.io/snimmagadda/nginx-pvc-example:latest
-          name: nginx-pvc-example
+        - name: nginx-pvc-example
+          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-hello-world"
           ports:
             - containerPort: 8081
               name: serve
