@@ -76,6 +76,7 @@ metadata:
     app: fcubs-route
 spec:
   host: application-karthick5268a-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+  path: /fcubs
   port:
     targetPort: fcubs-service
   tls:
