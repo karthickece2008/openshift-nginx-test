@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: fcubs-volume-pvc
+  name: fcubs-volume
 spec:
   accessModes:
     - ReadWriteOnce
@@ -41,7 +41,7 @@ spec:
       volumes:
         - name: fcubs-volume
           persistentVolumeClaim:
-            claimName: fcubs-volume-pvc
+            claimName: fcubs-volume
           configMap:
             name: fcubs-configmap  
       containers:
