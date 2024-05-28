@@ -46,7 +46,7 @@ spec:
         - name: fcubs
           image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-odt"
           ports:
-            - containerPort: 80
+            - containerPort: 8081
               name: serve
           volumeMounts:
             - name:  fcubs-volume
@@ -64,7 +64,7 @@ spec:
   - name: fcubs-service
     port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 8081
   selector:
     app: fcubs
 ---
