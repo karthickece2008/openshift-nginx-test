@@ -1,1 +1,1 @@
-# openshift-nginx-helloworld
+# Deploying sample application in openshift with pvc and route

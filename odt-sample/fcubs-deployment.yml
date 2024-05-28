@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 512M
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-static
+  labels:
+    app: nginx-static
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-static
+  template:
+    metadata:
+      labels:
+        app: nginx-static
+    spec:
+      volumes:
+        - name: nginx-static-storage
+          persistentVolumeClaim:
+            claimName: nginx-pvc
+      containers:
+        - name: nginx-pvc-example
+          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-hello-world"
+          ports:
+            - containerPort: 8081
+              name: serve
+          volumeMounts:
+            - name:  nginx-static-storage
+              mountPath: /var/www/static
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-static-svc
+  labels:
+    app: nginx-static-svc
+spec:
+  type: ClusterIP
+  ports:
+  - name: nginx-static
+    port: 8081
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: nginx-static
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nginx-static-route
+  labels:
+    app: nginx-static-svc
+spec:
+  # hostname: foo.apps.CLUSTER.ccs.ornl.gov
+  port:
+    targetPort: nginx-static
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: nginx-static-svc
+    weight: 100
+  wildcardPolicy: None
