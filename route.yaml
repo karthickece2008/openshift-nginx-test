@@ -3,7 +3,7 @@ kind: Route
 metadata:
   name: nginx-hello-world
 spec:
-  # hostname: foo.apps.CLUSTER.ccs.ornl.gov
+  sampleapplication-karthick5268a-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com/
   port:
     targetPort: nginx
   tls:
