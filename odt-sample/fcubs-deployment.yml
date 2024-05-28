@@ -10,17 +10,17 @@ data:
       <div>Hello FCUBS!</div>
     </body>
     </html>
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: fcubs-volume
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 512M
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: fcubs-volume
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 512M
 ---
 apiVersion: apps/v1
 kind: Deployment
