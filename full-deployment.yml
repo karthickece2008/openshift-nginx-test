@@ -43,6 +43,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-static-svc
+  labels:
+    app: nginx-static-svc
 spec:
   type: ClusterIP
   ports:
@@ -57,6 +59,8 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: nginx-static-route
+  labels:
+    app: nginx-static-svc
 spec:
   # hostname: foo.apps.CLUSTER.ccs.ornl.gov
   port:
