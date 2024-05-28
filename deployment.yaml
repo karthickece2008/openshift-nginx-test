@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "image-registry.openshift-image-registry:5000/karthick5268a-dev/nginx-hello-world"
+          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-hello-world"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           tty: true
