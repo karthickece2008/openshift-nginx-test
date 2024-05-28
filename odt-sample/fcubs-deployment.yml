@@ -40,8 +40,6 @@ spec:
     spec:
       volumes:
         - name: fcubs-volume
-          persistentVolumeClaim:
-            claimName: fcubs-volume
           configMap:
             name: fcubs-configmap  
       containers:
