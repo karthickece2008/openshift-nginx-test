@@ -31,7 +31,7 @@ spec:
       COPY entrypoint.sh /usr/src/entrypoint.sh
       RUN chmod g+rwx /usr/src/entrypoint.sh
 
-      RUN addgroup nginx root
+      RUN adduser nginx root
       USER nginx
 
       ENTRYPOINT "/usr/src/entrypoint.sh"
