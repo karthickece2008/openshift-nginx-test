@@ -50,7 +50,7 @@ spec:
               name: serve
           volumeMounts:
             - name:  fcubs-volume
-              mountPath: /var/www/static
+              mountPath: /var/www/static/fcubs
 ---
 apiVersion: v1
 kind: Service
