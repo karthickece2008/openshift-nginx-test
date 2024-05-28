@@ -42,6 +42,8 @@ spec:
         - name: fcubs-volume
           persistentVolumeClaim:
             claimName: fcubs-volume-pvc
+          configMap:
+            name: fcubs-configmap  
       containers:
         - name: fcubs
           image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-hello-world"
