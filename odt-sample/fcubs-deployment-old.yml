@@ -44,9 +44,9 @@ spec:
             name: fcubs-configmap  
       containers:
         - name: fcubs
-          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-odt"
+          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-hello-world"
           ports:
-            - containerPort: 80
+            - containerPort: 8081
               name: serve
           volumeMounts:
             - name:  fcubs-volume
@@ -62,9 +62,9 @@ spec:
   type: ClusterIP
   ports:
   - name: fcubs-service
-    port: 80
+    port: 8081
     protocol: TCP
-    targetPort: 80
+    targetPort: 8081
   selector:
     app: fcubs
 ---
