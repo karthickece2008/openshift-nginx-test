@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: obpm-configmap
+data:
+  index.html: |
+    <html>
+    <head><title>Hello OBPM!</title></head>
+    <body>
+      <div>Hello OBPM!</div>
+    </body>
+    </html>
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: obpm-volume
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 512M
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: obpm-deployment
+  labels:
+    app: obpm
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: obpm
+  template:
+    metadata:
+      labels:
+        app: obpm
+    spec:
+      volumes:
+        - name: obpm-volume
+          configMap:
+            name: obpm-configmap  
+      containers:
+        - name: obpm
+          image: "default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/karthick5268a-dev/nginx-hello-world"
+          ports:
+            - containerPort: 8081
+              name: serve
+          volumeMounts:
+            - name:  obpm-volume
+              mountPath: /var/www/static/obpm
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: obpm-service
+  labels:
+    app: obpm-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: obpm-service
+    port: 8081
+    protocol: TCP
+    targetPort: 8081
+  selector:
+    app: obpm
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: obpm-route
+  labels:
+    app: obpm-route
+spec:
+  host: application-karthick5268a-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
+  path: /obpm
+  port:
+    targetPort: obpm-service
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: obpm-service
+    weight: 100
+  wildcardPolicy: None

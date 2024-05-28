@@ -1,0 +1,6 @@
+oc delete route obpm-route
+oc delete service obpm-service
+oc delete deployment obpm-deployment
+oc delete configmap obpm-configmap
+#oc delete pvc obpm-volume
+#oc delete pvc obpm-volume-pvc
