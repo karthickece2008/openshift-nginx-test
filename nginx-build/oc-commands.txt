@@ -1,0 +1,4 @@
+oc create -f buildconfig.yaml
+oc create imagestream nginx-odt
+oc start-build nginx-odt --from-dir=./ --follow
+oc get imagestream nginx-odt

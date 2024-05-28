@@ -1,0 +1,38 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+    name: nginx-odt
+spec:
+  runPolicy: Serial
+  source:
+    dockerfile: |
+      FROM nginx:mainline
+
+      ADD odt-index.html /var/www/static/index.html
+
+      WORKDIR /usr/src
+
+      # support running as arbitrary user which belogs to the root group
+      RUN chmod -R g+rwx /var/cache/nginx /var/run /var/log/nginx /usr/share/nginx/html /var/www/static
+
+      # comment user directive as master process is run as user in OpenShift anyhow
+      RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
+
+      # Prepare for Entrypoint
+      COPY entrypoint.sh /usr/src/entrypoint.sh
+      RUN chmod g+rwx /usr/src/entrypoint.sh
+
+      # RUN addgroup -g root -S nginx
+      RUN adduser nginx root
+      USER nginx
+
+      ENTRYPOINT "/usr/src/entrypoint.sh"
+
+  strategy:
+    type: Docker
+    dockerStrategy:
+      noCache: false
+  output:
+    to:
+      kind: ImageStreamTag
+      name: "nginx-odt:latest"
