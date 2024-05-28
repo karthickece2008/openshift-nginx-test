@@ -62,7 +62,7 @@ metadata:
   labels:
     app: nginx-static-svc
 spec:
-  # hostname: foo.apps.CLUSTER.ccs.ornl.gov
+  application-karthick5268a-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com
   port:
     targetPort: nginx-static
   tls:
